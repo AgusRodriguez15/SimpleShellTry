@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include "shellmans.h"
 /**
  * main - PID
  *
@@ -7,14 +8,16 @@
  */
 int main(int ac, char **av)
 {
-	char *pache;
+	char *str;
+	char **arr_toks;
 	size_t x = 0;
 
 	while (1)
 	{
-    	printf("$ ");
-	getline(&pache, &x, stdin);
-	printf("%s", pache);
+    	printf("$shellmans ");
+	getline(&str, &x, stdin);
+	arr_toks = tokenizar(str);
+	/**printf("%s", pache);*/
 	}
 	return (0);
 }
