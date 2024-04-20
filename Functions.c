@@ -14,29 +14,25 @@ char **tokenizar(char *str)
 	int cantToks = 0;
 	int i, j = 0;
 
-	/**ar = malloc(10 * sizeof(char*));
-	  if (ar == NULL)
-	  return (NULL);**/
-	for (i = 0; i < cantToks; i++)
-	{
-		ar[i] = malloc(strlen(token) +1);
-		if (ar[i] == NULL)
-		{
-			for(; i >= 0; i--)
-				free(ar[0]);
-			free(ar);
-			return (NULL);
-		}
-	}
 	a = strdup(str);
+	if (a == NULL)
+		return (NULL);
+
 	tok = strtok(a, delim);
 	while (tok != NULL)
 	{
 		tok = strtok(NULL, delim);
 		cantToks++;
 	}
-	ar = malloc(cantToks * sizeof(char*));
+
+	ar = malloc(cantToks * sizeof(char*) + 1);
+	if (ar == NULL)
+	{
+		return (NULL);
+	}
 	t = strdup(str);
+	if (t == NULL)
+		return (NULL);
 	token = strtok(t, delim);
 	ar[0] = strdup(token);
 	while (token != NULL)
@@ -53,6 +49,7 @@ char **tokenizar(char *str)
 		printf("%s\n", ar[j]);
 		j++;
 	}
+	free(ar);
 	printf("pacheee\n");
 	return (ar);
 }			
