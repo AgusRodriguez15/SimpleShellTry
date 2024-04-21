@@ -17,6 +17,8 @@ int main(int ac, char **av)
     	printf("$shellmans ");
 	getline(&str, &x, stdin);
 	arr_toks = tokenizar(str);
+	if (getline(&str, &x, stdin) == -1)
+		return 0;
 	/**printf("%s", pache);*/
 	}
 	return (0);
