@@ -14,7 +14,7 @@ int main(int ac, char **av)
 	size_t x = 0;
 	pid_t child_pid;
 	int status;
-	char **environ;
+	extern char **environ;
 
 	while (1)
 	{
@@ -34,7 +34,7 @@ int main(int ac, char **av)
 	child_pid = fork();
 		if (child_pid == -1)
 		{
-			perror("Error:");
+			perror("Error");
 			return (1);
 		}
 
