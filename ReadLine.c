@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "shellmans.h"
+#include <sys/wait.h>
 /**
  * main - PID
  *
@@ -11,15 +12,41 @@ int main(int ac, char **av)
 	char *str;
 	char **arr_toks;
 	size_t x = 0;
+	pid_t child_pid;
+	int status;
 
 	while (1)
 	{
     	printf("$shellmans ");
-	getline(&str, &x, stdin);
-	arr_toks = tokenizar(str);
+	
 	if (getline(&str, &x, stdin) == -1)
-		return 0;
+                return 0;
+	str[strlen(str) - 1] = '\0';
+	arr_toks = tokenizar(str);
+
+	if (strcmp(str, "exit\n") == 0)
+	{
+		free(str);
+		break;
+	}
 	/**printf("%s", pache);*/
+	child_pid = fork();
+		if (child_pid == -1)
+		{
+			perror("Error:");
+			return (1);
+		}
+
+		if (child_pid == 0)
+		{
+			if (execve(arr_toks[0], arr_toks, NULL) == -1)
+			{
+				perror("Error:");
+				return (1);
+			}
+		}
+		else
+			wait(&status);
 	}
 	return (0);
 }
