@@ -14,6 +14,7 @@ int main(int ac, char **av)
 	size_t x = 0;
 	pid_t child_pid;
 	int status;
+	char **environ;
 
 	while (1)
 	{
@@ -39,7 +40,7 @@ int main(int ac, char **av)
 
 		if (child_pid == 0)
 		{
-			if (execve(arr_toks[0], arr_toks, NULL) == -1)
+			if (execve(arr_toks[0], arr_toks, environ) == -1)
 			{
 				perror("Error:");
 				return (1);
